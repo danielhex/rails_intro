@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
   def index
     if params.has_key?(:sorting) 
       @sorting = params[:sorting]
+    end
     @movies = Movie.order(@sorting).all
   end
 
