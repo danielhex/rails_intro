@@ -37,6 +37,7 @@ class MoviesController < ApplicationController
       @movies = Movie.order(@sorting).find_all_by_rating(ratings)
     else
       @movies = Movie.find_all_by_rating(ratings)
+    end
     @checked = ratings
   end
 
