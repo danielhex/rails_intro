@@ -7,10 +7,32 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = Movie.get_ratings.keys
+
+    if (!params.has_key? :sorting) && (!params.has_key? :ratings) && (session.has_key? :sorting) || (session.has_key? :ratings)
+      redirect_to movies_path(:sorting => session[:sorting], :ratings => session[:ratings])
+    end
     if params.has_key?(:sorting) 
       @sorting = params[:sorting]
     end
-    @movies = Movie.order(@sorting).all
+    @ratings = params[ratings]
+    if (@ratings != nil)
+      ratings = @ratings.keys
+      session[:ratings] = @ratings
+    else
+      if ((!params.has_key? :commit) && (!params.has_key? :sorting)
+        ratings = Movie.get_ratings.keys
+        session[:ratings] = Movie.get_ratings
+      else
+        ratings = session[:ratings].keys
+      end
+    end
+
+    session[:sorting] = @sorting
+    
+
+    @movies = Movie.order(@sorting).find_all_by_rating(ratings)
+    @checked = ratings
   end
 
   def new
