@@ -43,10 +43,8 @@ class MoviesController < ApplicationController
     
     #part1  sorting
     @sort = params[:sorting]
-    if(@sort == 'title')
-      @sort = :title
-    elsif(@sort == 'release_date')
-      @sort = :release_date
+    if params.has_key?(:sorting) 
+      @sorting = params[:sorting]
     end
     session[:sorting] = @sorting
 
