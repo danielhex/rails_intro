@@ -34,7 +34,6 @@ class MoviesController < ApplicationController
     # @movies = Movie.order(@sorting).find_all_by_rating(ratings)
     # @checked = ratings
 
-    #part3  remember
     if(params[:sorting] == nil && params[:ratings] == nil)
       if(session[:sorting] != nil || session[:ratings] != nil)
         redirect_to movies_path(:sorting =>session[:sorting], :ratings=>session[:ratings])
@@ -57,7 +56,7 @@ class MoviesController < ApplicationController
       session[:ratings] = @ratings
     #if no current input ratings, but input sort, use last time input ratings
     else
-      if(params['commit'] == nil && params['sort'] == nil)
+      if(params[:commit] == nil && params[:sorting] == nil)
         ratings = Movie.get_ratings.keys
         session[:ratings] = Movie.get_ratings
       else
