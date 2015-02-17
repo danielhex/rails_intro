@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
       ratings = @ratings.keys
       session[:ratings] = @ratings
     else
-      if ((!params.has_key? :commit) && (!params.has_key? :sorting)
+      if ((!params.has_key? :commit) && (!params.has_key? :sorting))
         ratings = Movie.get_ratings.keys
         session[:ratings] = Movie.get_ratings
       else
