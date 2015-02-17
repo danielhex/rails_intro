@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     if params.has_key?(:sorting) 
       @sorting = params[:sorting]
     end
-    @ratings = params[ratings]
+    @ratings = params[:ratings]
     if (@ratings != nil)
       ratings = @ratings.keys
       session[:ratings] = @ratings
@@ -32,7 +32,7 @@ class MoviesController < ApplicationController
     
 
     @movies = Movie.order(@sorting).find_all_by_rating(ratings)
-
+    @checked = ratings
   end
 
   def new
