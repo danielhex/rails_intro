@@ -35,24 +35,24 @@ class MoviesController < ApplicationController
     # @checked = ratings
 
     #part3  remember
-    if(params[:sort] == nil && params[:ratings] == nil)
-      if(session[:sort] != nil || session[:ratings] != nil)
-        redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
+    if(params[:sorting] == nil && params[:ratings] == nil)
+      if(session[:sorting] != nil || session[:ratings] != nil)
+        redirect_to movies_path(:sorting =>session[:sorting], :ratings=>session[:ratings])
       end
     end
     
     #part1  sorting
-    @sort = params[:sort]
-    if(@sort == 'titleheader')
+    @sort = params[:sorting]
+    if(@sort == 'title')
       @sort = :title
-    elsif(@sort == 'dateheader')
+    elsif(@sort == 'release_date')
       @sort = :release_date
     end
-    session[:sort] = @sort
+    session[:sorting] = @sorting
 
     
     #part2  rating checkbox
-    @all_ratings = Movie.all_ratings.keys
+    @all_ratings = Movie.get_ratings.keys
     @ratings = params[:ratings]
     if(@ratings != nil)
       ratings = @ratings.keys
@@ -60,15 +60,15 @@ class MoviesController < ApplicationController
     #if no current input ratings, but input sort, use last time input ratings
     else
       if(params['commit'] == nil && params['sort'] == nil)
-        ratings = Movie.all_ratings.keys
-        session[:ratings] = Movie.all_ratings
+        ratings = Movie.get_ratings.keys
+        session[:ratings] = Movie.get_ratings
       else
         ratings = session[:ratings].keys
       end
     end
 
-    if(@sort != nil) 
-      @movies = Movie.order(@sort).find_all_by_rating(ratings)
+    if(@sorting != nil) 
+      @movies = Movie.order(@sorting).find_all_by_rating(ratings)
     else
       @movies = Movie.find_all_by_rating(ratings)
     end
