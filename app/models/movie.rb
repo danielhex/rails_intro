@@ -6,4 +6,5 @@ class Movie < ActiveRecord::Base
   		result << movie.rating
   	end
   	return result
+  end
 end
