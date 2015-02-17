@@ -7,7 +7,8 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @sorting = params.has_key?(:sorting) ? (session[:sorting] = params[:sorting]) : session[:sorting]
+    if params.has_key?(:sorting) 
+      @sorting = params[:sorting]
     @movies = Movie.order(@sorting).all
   end
 
