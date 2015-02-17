@@ -4,11 +4,11 @@
 %table#movies
   %thead
     %tr
-      %th{ :class=> [@orderby == 'title' && 'hilite']} 
-        = link_to "Movie Title", movies_path(orderby=> 'title'), :id => "title_header"
+      %th{ :class => [@sorting == 'title' && 'hilite']}
+      = link_to 'Movie Title', movies_path(:sorting => 'title'), :id => 'title_header'
       %th Rating
-      %th{ :class=> [@orderby == 'release_date' && 'hilite']}
-        = link_to 'Release Date', movies_path(:orderby => 'release_date'), :id=> 'release_date_header'
+      %th{ :class => [@sorting == 'release_date' && 'hilite']}
+      = link_to 'Release Date', movies_path(:sorting => 'release_date'), :id => 'release_date_title'
       %th More Info
   %tbody
     - @movies.each do |movie|
