@@ -32,7 +32,6 @@ class MoviesController < ApplicationController
     
 
     # @movies = Movie.order(@sorting).find_all_by_rating(ratings)
-    # @checked = ratings
 
     if(params[:sorting] == nil && params[:ratings] == nil)
       if(session[:sorting] != nil || session[:ratings] != nil)
@@ -40,21 +39,17 @@ class MoviesController < ApplicationController
       end
     end
     
-    #part1  sorting
     @sort = params[:sorting]
     if params.has_key?(:sorting) 
       @sorting = params[:sorting]
     end
     session[:sorting] = @sorting
 
-    
-    #part2  rating checkbox
     @all_ratings = Movie.get_ratings.keys
     @ratings = params[:ratings]
     if(@ratings != nil)
       ratings = @ratings.keys
       session[:ratings] = @ratings
-    #if no current input ratings, but input sort, use last time input ratings
     else
       if(params[:commit] == nil && params[:sorting] == nil)
         ratings = Movie.get_ratings.keys
@@ -63,11 +58,7 @@ class MoviesController < ApplicationController
         ratings = session[:ratings].keys
       end
     end
-
     @movies = Movie.order(@sorting).find_all_by_rating(ratings)
-
-
-
   end
 
   def new
