@@ -65,9 +65,6 @@ class MoviesController < ApplicationController
     end
 
     @movies = Movie.order(@sorting).find_all_by_rating(ratings)
-    
-    #indicate checked boxes
-    @checked  = ratings
 
 
 
