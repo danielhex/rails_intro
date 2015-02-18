@@ -59,6 +59,7 @@ class MoviesController < ApplicationController
       end
     end
     @movies = Movie.order(@sorting).find_all_by_rating(ratings)
+    @check = ratings
   end
 
   def new
