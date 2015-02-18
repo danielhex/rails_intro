@@ -115,16 +115,13 @@ class MoviesController < ApplicationController
 #session[:ratings] = Movie.all_ratings
     end
 
-    if(@sort != nil) 
-      @movies = Movie.order(@sort).find_all_by_rating(ratings)
-    else
-      @movies = Movie.find_all_by_rating(ratings)
-    end
-    
-    #indicate checked boxes
+    # if(@sort != nil) 
+    #   @movies = Movie.order(@sort).find_all_by_rating(ratings)
+    # else
+    #   @movies = Movie.find_all_by_rating(ratings)
+    # end
+    @movies = Movie.order(@sort).find_all_by_rating(ratings)
     @check  = ratings
-  
-#@movies = Movie.find_all_by_rating(ratings)
 
   end
 
@@ -157,11 +154,6 @@ class MoviesController < ApplicationController
   end
   
   def find_class(header)
-    # if(params[:sort] == header)
-    #   'hilite'
-    # else
-    #   nil
-    # end
     params[:sort] == header ? 'hilite' : nil
   end
   helper_method :find_class
