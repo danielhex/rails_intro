@@ -84,24 +84,20 @@ class MoviesController < ApplicationController
         redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
       end
     end
-    
-    #part1  sorting
-    @sort = params[:sort]
-    if(@sort == 'title')
-      @sort = :title
-    elsif(@sort == 'release_date')
-      @sort = :release_date
-    end
-    session[:sort] = @sort
 
-    
-    #part2  rating checkbox
+    # @sort = params[:sort]
+    # if(@sort == 'title')
+    #   @sort = :title
+    # elsif(@sort == 'release_date')
+    #   @sort = :release_date
+    # end
+    # session[:sort] = @sort
+    @sort = params.has_key?(:sort) ? (session[:sort] = params[:sort]) : session[:sort]
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
     if(@ratings != nil)
       ratings = @ratings.keys
       session[:ratings] = @ratings
-    #if no current input ratings, but input sort, use last time input ratings
     else
       if(params['commit'] == nil && params['sort'] == nil)
         ratings = Movie.all_ratings.keys
@@ -109,17 +105,7 @@ class MoviesController < ApplicationController
       else
         ratings = session[:ratings].keys
       end
-    #if no current input ratings and input sort, ratings filter = all_ratings
-#else
-#ratings = Movie.all_ratings
-#session[:ratings] = Movie.all_ratings
     end
-
-    # if(@sort != nil) 
-    #   @movies = Movie.order(@sort).find_all_by_rating(ratings)
-    # else
-    #   @movies = Movie.find_all_by_rating(ratings)
-    # end
     @movies = Movie.order(@sort).find_all_by_rating(ratings)
     @check  = ratings
 
