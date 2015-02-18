@@ -122,7 +122,7 @@ class MoviesController < ApplicationController
     end
     
     #indicate checked boxes
-    @checked  = ratings
+    @check  = ratings
   
 #@movies = Movie.find_all_by_rating(ratings)
 
