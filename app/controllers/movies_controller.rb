@@ -157,11 +157,12 @@ class MoviesController < ApplicationController
   end
   
   def find_class(header)
-    if(params[:sort] == header)
-      return 'hilite'
-    else
-      return nil
-    end
+    # if(params[:sort] == header)
+    #   'hilite'
+    # else
+    #   nil
+    # end
+    params[:sort] == header ? 'hilite' : nil
   end
   helper_method :find_class
 
