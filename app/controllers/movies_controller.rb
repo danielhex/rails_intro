@@ -7,61 +7,91 @@ class MoviesController < ApplicationController
   end
 
   def index
-    # @all_ratings = Movie.get_ratings.keys
-
-    # if (!params.has_key? :sorting) && (!params.has_key? :ratings) && (session.has_key? :sorting) || (session.has_key? :ratings)
-    #   redirect_to movies_path(:sorting => session[:sorting], :ratings => session[:ratings])
-    # end
+    # @sorting = params[:sorting]
     # if params.has_key?(:sorting) 
     #   @sorting = params[:sorting]
     # end
+    # session[:sorting] = @sorting
+    if(params[:sorting] == nil && params[:ratings] == nil)
+      if(session[:sorting] != nil || session[:ratings] != nil)
+        redirect_to movies_path(:sorting=>session[:sorting], :ratings=>session[:ratings])
+      end
+    end
+    
+    # @sorting = params[:sorting]
+    # if params.has_key?(:sorting) 
+    #   @sorting = params[:sorting]
+    # end
+    # session[:sorting] = @sorting
+    @sorting = params[:sorting]
+    if(@sorting == 'title')
+      @sorting = :title
+    elsif(@sorting == 'release_date')
+      @sorting = :release_date
+    end
+    session[:sorting] = @sorting
+
+    # @sorting = params[:sorting]
+    # if params.has_key?(:sorting) 
+    #   @sorting = params[:sorting]
+    # end
+    # session[:sorting] = @sorting
+
+    @all_ratings = Movie.all_ratings.keys
+    @ratings = params[:ratings]
+    if(@ratings != nil)
+      ratings = @ratings.keys
+      session[:ratings] = @ratings
+    else
+      if(params['commit'] == nil && params['sorting'] == nil)
+        ratings = Movie.all_ratings.keys
+        session[:ratings] = Movie.all_ratings
+      else
+        ratings = session[:ratings].keys
+      end
+    end
+    # @sorting = params[:sorting]
+    # if params.has_key?(:sorting) 
+    #   @sorting = params[:sorting]
+    # end
+    # session[:sorting] = @sorting
+
+    if(@sorting != nil) 
+      @movies = Movie.order(@sorting).find_all_by_rating(ratings)
+    else
+      @movies = Movie.find_all_by_rating(ratings)
+    end
+    @check  = ratings
+
+    #********************************************************************
+
+    # if(params[:sorting] == nil && params[:ratings] == nil)
+    #   if(session[:sorting] != nil || session[:ratings] != nil)
+    #     redirect_to movies_path(:sorting =>session[:sorting], :ratings=>session[:ratings])
+    #   end
+    # end
+    
+    # @sorting = params[:sorting]
+    # if params.has_key?(:sorting) 
+    #   @sorting = params[:sorting]
+    # end
+    # session[:sorting] = @sorting
+
+    # @all_ratings = Movie.get_ratings.keys
     # @ratings = params[:ratings]
-    # if (@ratings != nil)
+    # if(@ratings != nil)
     #   ratings = @ratings.keys
     #   session[:ratings] = @ratings
     # else
-    #   if ((!params.has_key? :commit) && (!params.has_key? :sorting))
+    #   if(params[:commit] == nil && params[:sorting] == nil)
     #     ratings = Movie.get_ratings.keys
     #     session[:ratings] = Movie.get_ratings
     #   else
     #     ratings = session[:ratings].keys
     #   end
     # end
-
-    # session[:sorting] = @sorting
-    
-
     # @movies = Movie.order(@sorting).find_all_by_rating(ratings)
-
-    #********************************************************************
-
-    if(params[:sorting] == nil && params[:ratings] == nil)
-      if(session[:sorting] != nil || session[:ratings] != nil)
-        redirect_to movies_path(:sorting =>session[:sorting], :ratings=>session[:ratings])
-      end
-    end
-    
-    @sorting = params[:sorting]
-    if params.has_key?(:sorting) 
-      @sorting = params[:sorting]
-    end
-    session[:sorting] = @sorting
-
-    @all_ratings = Movie.get_ratings.keys
-    @ratings = params[:ratings]
-    if(@ratings != nil)
-      ratings = @ratings.keys
-      session[:ratings] = @ratings
-    else
-      if(params[:commit] == nil && params[:sorting] == nil)
-        ratings = Movie.get_ratings.keys
-        session[:ratings] = Movie.get_ratings
-      else
-        ratings = session[:ratings].keys
-      end
-    end
-    @movies = Movie.order(@sorting).find_all_by_rating(ratings)
-    @check = ratings
+    # @check = ratings
   end
 
   def new
