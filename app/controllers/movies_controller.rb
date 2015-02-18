@@ -88,6 +88,7 @@ class MoviesController < ApplicationController
       else
         ratings = session[:ratings].keys
       end
+    end
     @movies = Movie.order(@sorting).find_all_by_rating(ratings)
     @checked  = ratings
   end
