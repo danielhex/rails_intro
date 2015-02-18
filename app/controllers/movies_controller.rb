@@ -163,6 +163,6 @@ class MoviesController < ApplicationController
       return nil
     end
   end
-  helper_method :header_class
+  helper_method :find_class
 
 end
