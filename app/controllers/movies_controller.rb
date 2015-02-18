@@ -35,38 +35,9 @@ class MoviesController < ApplicationController
 
     #********************************************************************
 
-    # if(params[:sorting] == nil && params[:ratings] == nil)
-    #   if(session[:sorting] != nil || session[:ratings] != nil)
-    #     redirect_to movies_path(:sorting =>session[:sorting], :ratings=>session[:ratings])
-    #   end
-    # end
-    
-    # @sorting = params[:sorting]
-    # if params.has_key?(:sorting) 
-    #   @sorting = params[:sorting]
-    # end
-    # session[:sorting] = @sorting
-
-    # @all_ratings = Movie.get_ratings.keys
-    # @ratings = params[:ratings]
-    # if(@ratings != nil)
-    #   ratings = @ratings.keys
-    #   session[:ratings] = @ratings
-    # else
-    #   if(params[:commit] == nil && params[:sorting] == nil)
-    #     ratings = Movie.get_ratings.keys
-    #     session[:ratings] = Movie.get_ratings
-    #   else
-    #     ratings = session[:ratings].keys
-    #   end
-    # end
-    # @movies = Movie.order(@sorting).find_all_by_rating(ratings)
-    # @check = ratings
-
-
     if(params[:sorting] == nil && params[:ratings] == nil)
       if(session[:sorting] != nil || session[:ratings] != nil)
-        redirect_to movies_path(:sorting=>session[:sorting], :ratings=>session[:ratings])
+        redirect_to movies_path(:sorting =>session[:sorting], :ratings=>session[:ratings])
       end
     end
     
@@ -76,13 +47,13 @@ class MoviesController < ApplicationController
     end
     session[:sorting] = @sorting
 
-    @all_ratings = Movie.get_ratings
+    @all_ratings = Movie.get_ratings.keys
     @ratings = params[:ratings]
     if(@ratings != nil)
       ratings = @ratings.keys
       session[:ratings] = @ratings
     else
-      if(params['commit'] == nil && params[:sorting] == nil)
+      if(params[:commit] == nil && params[:sorting] == nil)
         ratings = Movie.get_ratings.keys
         session[:ratings] = Movie.get_ratings
       else
@@ -90,7 +61,7 @@ class MoviesController < ApplicationController
       end
     end
     @movies = Movie.order(@sorting).find_all_by_rating(ratings)
-    @checked  = ratings
+    @check = ratings
   end
 
   def new
