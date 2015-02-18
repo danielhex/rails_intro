@@ -39,7 +39,7 @@ class MoviesController < ApplicationController
       end
     end
     
-    @sort = params[:sorting]
+    @sorting = params[:sorting]
     if params.has_key?(:sorting) 
       @sorting = params[:sorting]
     end
