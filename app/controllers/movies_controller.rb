@@ -78,20 +78,13 @@ class MoviesController < ApplicationController
   end
 
   def index
-    #part3  remember
+
     if(params[:sort] == nil && params[:ratings] == nil)
       if(session[:sort] != nil || session[:ratings] != nil)
         redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
       end
     end
 
-    # @sort = params[:sort]
-    # if(@sort == 'title')
-    #   @sort = :title
-    # elsif(@sort == 'release_date')
-    #   @sort = :release_date
-    # end
-    # session[:sort] = @sort
     @sort = params.has_key?(:sort) ? (session[:sort] = params[:sort]) : session[:sort]
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
@@ -107,7 +100,7 @@ class MoviesController < ApplicationController
       end
     end
     @movies = Movie.order(@sort).find_all_by_rating(ratings)
-    @check  = ratings
+    @mark  = ratings
 
   end
 
