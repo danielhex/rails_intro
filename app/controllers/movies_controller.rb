@@ -156,13 +156,13 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
   
-  # def header_class(header)
-  #   if(params[:sort] == header)
-  #     return 'hilite'
-  #   else
-  #     return nil
-  #   end
-  # end
-  # helper_method :header_class
+  def find_class(header)
+    if(params[:sort] == header)
+      return 'hilite'
+    else
+      return nil
+    end
+  end
+  helper_method :header_class
 
 end
