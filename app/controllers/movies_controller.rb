@@ -87,9 +87,9 @@ class MoviesController < ApplicationController
     
     #part1  sorting
     @sort = params[:sort]
-    if(@sort == 'titleheader')
+    if(@sort == 'title')
       @sort = :title
-    elsif(@sort == 'dateheader')
+    elsif(@sort == 'release_date')
       @sort = :release_date
     end
     session[:sort] = @sort
@@ -156,13 +156,13 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
   
-  def header_class(header)
-    if(params[:sort] == header)
-      return 'hilite'
-    else
-      return nil
-    end
-  end
-  helper_method :header_class
+  # def header_class(header)
+  #   if(params[:sort] == header)
+  #     return 'hilite'
+  #   else
+  #     return nil
+  #   end
+  # end
+  # helper_method :header_class
 
 end
