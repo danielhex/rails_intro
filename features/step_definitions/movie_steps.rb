@@ -6,7 +6,7 @@ Given /the following movies exist/ do |movies_table|
     # you should arrange to add that movie to the database here.
     Movie.create(:title => movie[:title], :rating => movie[:rating], :release_date => movie[:release_date])
   end
-  Movie.all.size.should be 10
+  Movie.all.size.should == 10
 end
 
 # Make sure that one string (regexp) occurs before or after another one
