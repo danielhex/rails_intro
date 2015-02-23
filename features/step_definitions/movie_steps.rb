@@ -27,10 +27,7 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   rating_list.split(',').each do |rating|
     #flunk uncheck
     if uncheck
-      #When %{I fill in "#{name}" with "#{value}"}
-      #When /^(?:|I )check "([^"]*)"$/ do |field|
       uncheck("ratings_#{rating}")
-      #end
     else
       check("ratings_#{rating}")
     end
@@ -39,6 +36,12 @@ end
 
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
+  movies = Movie.find(:all)
+  if movie.size == 10
+    movies.each do |movie|
+      assert(page.body ~= /#{movie[:title]}/m, "#{movie[:title] not match}")
+  else
+    return false
 end
 
 # When /^(?:|I )press "([^"]*)"$/ do |button|

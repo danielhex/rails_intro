@@ -23,7 +23,7 @@ Background: movies have been added to database
 
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to check the 'PG' and 'R' checkboxes
-  Given I check the following ratings: PG,R
+  When I check the following ratings: PG,R
   And I uncheck the following ratings: PG-13,G
   And I press "Refresh"
   Then I should see "The Terminator"
@@ -42,4 +42,5 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to ensure that other movies are not visible
 
 Scenario: all ratings selected
+  When I check the following ratings: PG,R,PG-13,G 
   # see assignment
