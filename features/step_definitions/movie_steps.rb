@@ -40,8 +40,10 @@ Then /I should see all the movies/ do
   if movie.size == 10
     movies.each do |movie|
       assert(page.body =~ /#{movie[:title]}/m, "#{movie[:title]} not match")
+    end
   else
     return false
+  end
 end
 
 # When /^(?:|I )press "([^"]*)"$/ do |button|
