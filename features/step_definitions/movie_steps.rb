@@ -37,7 +37,7 @@ end
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
   movies = Movie.find(:all)
-  if movie.size == 10
+  if movies.size == 10
     movies.each do |movie|
       assert(page.body =~ /#{movie[:title]}/m, "#{movie[:title]} not match")
     end
