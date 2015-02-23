@@ -15,7 +15,7 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
   elem = page.html
-  assert elem.index(e1) < elem.index(e2)
+  assert(elem.index(e1) < elem.index(e2), "incorrect behavior")
 end
 
 # Make it easier to express checking or unchecking several boxes at once
