@@ -41,9 +41,9 @@ Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
 end
 
-When /^(?:|I )press "([^"]*)"$/ do |button|
-  click_button(button)
-end
+# When /^(?:|I )press "([^"]*)"$/ do |button|
+#   click_button(button)
+# end
 
 # When /^(?:|I )check "([^"]*)"$/ do |field|
 #   check(field)
