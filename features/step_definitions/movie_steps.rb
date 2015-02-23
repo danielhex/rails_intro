@@ -39,7 +39,7 @@ Then /I should see all the movies/ do
   movies = Movie.find(:all)
   if movie.size == 10
     movies.each do |movie|
-      assert(page.body =~ /#{movie[:title]}/m, "#{movie[:title] not match}")
+      assert(page.body =~ /#{movie[:title]}/m, "#{movie[:title]} not match")
   else
     return false
 end
