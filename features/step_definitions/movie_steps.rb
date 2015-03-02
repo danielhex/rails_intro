@@ -48,6 +48,11 @@ Then /I should see all the movies/ do
   end
 end
 
+Then /the director of "(.*)" should be "(.*)"/  do |title, name|
+  @movie = Movie.find_by_title(title)
+  assert (@movie.director == name, "direcor for #{@movie.title} not match")
+end
+
 # When /^(?:|I )press "([^"]*)"$/ do |button|
 #   click_button(button)
 # end
