@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(:version => 20150217084010) do
     t.datetime "release_date"
     t.string   "rating"
     t.text     "description"
-    t.string   "director"
   end
 
 end
