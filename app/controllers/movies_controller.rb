@@ -58,6 +58,9 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
+
+  def similar_movie
+  end
   
   def find_class(header)
     params[:sort] == header ? 'hilite' : nil
