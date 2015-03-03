@@ -60,6 +60,9 @@ class MoviesController < ApplicationController
   end
 
   def similar_movie
+    id = params[:id]
+    @movie = Movie.find_by_id(id)
+    @movies = Movie.find_all_by_director(@movie.director)
   end
   
   def find_class(header)
